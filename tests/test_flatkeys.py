@@ -48,3 +48,24 @@ class TestConstruct(unittest.TestCase):
             1,
             self.a_conf["a.b.c"]
         )
+
+    def test_from_yaml(self):
+        o = flatconfig.FlatConfig.from_yaml("""
+        "a":
+            "b": 1
+        """)
+        self.assertEqual(
+            1,
+            o["a.b"]
+        )
+
+    def test_fromfile_yaml(self):
+        # with open("sample.yaml"):
+        self.assertDictEqual(
+            {
+                "a.b.c": 1,
+                "a.d": 2,
+                "a.e.f": 3
+            },
+            flatconfig.FlatConfig.from_file("sample1.yaml")
+        )
