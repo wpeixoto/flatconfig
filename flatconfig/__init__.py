@@ -3,7 +3,7 @@ import flatten_dict
 import ruamel.yaml as yaml
 
 
-class FlatConfig(dict):
+class FlatKeysDict(dict):
 
     @staticmethod
     def dot_reducer(k1, k2):
@@ -15,7 +15,7 @@ class FlatConfig(dict):
     def __init__(self, dict_like: dict = None) -> None:
         dd = {}
         if dict_like is not None:
-            dd = flatten_dict.flatten(dict_like, reducer=FlatConfig.dot_reducer)
+            dd = flatten_dict.flatten(dict_like, reducer=FlatKeysDict.dot_reducer)
         super().__init__(dd)
 
     @classmethod

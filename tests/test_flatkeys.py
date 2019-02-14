@@ -6,7 +6,7 @@ import unittest
 class TestAccessFlatKeys(unittest.TestCase):
 
     def setUp(self):
-        self.flat_1 = flatconfig.FlatConfig()
+        self.flat_1 = flatconfig.FlatKeysDict()
         self.flat_1["single"] = "single"
         self.flat_1["double.first"] = 0
         # self.flat_1["double"]["second"] = 1  # Not implemented yet
@@ -30,10 +30,10 @@ class TestAccessFlatKeys(unittest.TestCase):
     #     )
 
 
-class TestConstruct(unittest.TestCase):
+class TestConstructDict(unittest.TestCase):
 
     def setUp(self):
-        self.a_conf = flatconfig.FlatConfig(
+        self.a_conf = flatconfig.FlatKeysDict(
             {
                 "a": {
                     "b": {
@@ -50,7 +50,7 @@ class TestConstruct(unittest.TestCase):
         )
 
     def test_from_yaml(self):
-        o = flatconfig.FlatConfig.from_yaml("""
+        o = flatconfig.FlatKeysDict.from_yaml("""
         "a":
             "b": 1
         """)
@@ -67,5 +67,5 @@ class TestConstruct(unittest.TestCase):
                 "a.d": 2,
                 "a.e.f": 3
             },
-            flatconfig.FlatConfig.from_file("sample1.yaml")
+            flatconfig.FlatKeysDict.from_file("sample1.yaml")
         )
