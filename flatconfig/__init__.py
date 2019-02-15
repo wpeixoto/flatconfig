@@ -1,4 +1,6 @@
 import flatten_dict
+import requests
+import requests.exceptions
 # from typing import Any, _VT, _KT
 import ruamel.yaml as yaml
 
@@ -50,3 +52,22 @@ class FlatKeysDict(dict):
     #             super().__setattr__(name, value)
     #
 
+class FlatConfig(FlatKeysDict):
+
+    def __init__(self, filename=None, url=None) -> None:
+        dict_like = {}
+        if filename is not None:
+            dict_like = FlatKeysDict.from_file(filename)
+        else:
+            if url is not None:
+                try:
+                    r = requests.get(url)
+                except ValueError:
+                    pass
+                else:
+                    dict_like = FlatKeysDict.from_yaml(r.text)
+        super().__init__(dict_like)
+
+
+if __name__ == '__main__':
+    pass
